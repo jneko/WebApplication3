@@ -1,0 +1,133 @@
+﻿@page
+@model WebApplication3.Pages.RegisterModel
+@{
+}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center align-items-center">
+
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <h1 class="mb-3">Register </h1>
+
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.FirstName">First Name</label>
+                    <input type="Text" asp-for="RModel.FirstName" class="form-control" />
+                    <span asp-validation-for="RModel.FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.LastName">Last Name</label>
+                    <input type="Text" asp-for="RModel.LastName" class="form-control" />
+                    <span asp-validation-for="RModel.LastName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.CreditCard">Credit Card</label>
+                    <input type="Text" asp-for="RModel.CreditCard" class="form-control" />
+                    <span asp-validation-for="RModel.CreditCard" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.PhoneNumber">Phone Number</label>
+                    <input type="Text" asp-for="RModel.PhoneNumber" class="form-control" />
+                    <span asp-validation-for="RModel.PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.BillingAddress">Billing Address</label>
+                    <input type="Text" asp-for="RModel.BillingAddress" class="form-control" />
+                    <span asp-validation-for="RModel.BillingAddress" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.ShippingAddress">Shipping Address</label>
+                    <input type="Text" asp-for="RModel.ShippingAddress" class="form-control" />
+                    <span asp-validation-for="RModel.ShippingAddress" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Email">Email Address</label>
+                    <input type="Text" asp-for="RModel.Email" class="form-control" />
+                    <span asp-validation-for="RModel.Email" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.Password">Password</label>
+                    <input type="password" asp-for="RModel.Password" class="form-control password-input" oninput="getPasswordStrength()" />
+                    <span asp-validation-for="RModel.Password" class="text-danger"></span>
+                    <div id="password-strength-indicator"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" asp-for="RModel.ConfirmPassword">Confirm Password</label>
+                    <input type="password" asp-for="RModel.ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="RModel.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @section scripts{
+        <script>
+            function getPasswordStrength() {
+                var password = document.getElementById("RModel_Password").value;
+                var strength = calculatePasswordStrength(password);
+
+                // Update the password strength indicator
+                var indicator = document.getElementById("password-strength-indicator");
+                indicator.innerHTML = 'Password Strength: ' + getStrengthLabel(strength);
+            }
+
+            function calculatePasswordStrength(password) {
+                var points = 0;
+
+                // Minimum length requirement
+                if (password.length >= 12) {
+                    points += 3;
+                }
+
+                // Check for uppercase letter
+                if (/[A-Z]/.test(password)) {
+                    points += 1;
+                }
+
+                // Check for lowercase letter
+                if (/[a-z]/.test(password)) {
+                    points += 1;
+                }
+
+                // Check for digit
+                if (/\d/.test(password)) {
+                    points += 1;
+                }
+
+                // Check for special character
+                if (/[^a-zA-Z\d]/.test(password)) {
+                    points += 2;
+                }
+
+                return points;
+            }
+
+            function getStrengthLabel(strength) {
+                // Customize the labels based on your strength scale
+                if (strength >= 8) {
+                    return 'Strong';
+                } else if (strength >= 5) {
+                    return 'Medium';
+                } else {
+                    return 'Weak';
+                }
+            }
+        </script>
+    }
+</div>
+
+
